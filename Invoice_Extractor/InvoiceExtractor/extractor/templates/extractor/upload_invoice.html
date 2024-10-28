@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .container {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .container h2 {
+            color: #333;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .message.error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload Invoice PDF</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Upload</button>
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <div class="message" id="successMessage">{{ message }}</div>
+                {% elif message.tags == 'error' %}
+                    <div class="message error" id="errorMessage">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (successMessage) {
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+            }
+
+            if (errorMessage) {
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
