@@ -1,3 +1,5 @@
+INVOICE EXTRACTOR SYSTEM
+
 This project is an Invoice Extractor System built with Django. It allows users to upload invoice bills, then automatically extracts and saves key information like Invoice ID, Customer Name, and Total Due Amount directly to a database.
 
 
